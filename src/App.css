@@ -6,20 +6,18 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #b89ec7; /* Muted purple */
   font-family: Calibri, sans-serif; /* Set font to Calibri */
-  /* overflow: hidden; */
-}
-/* Center the image and give it enough space */
-img {
-  width: 400px;
-  height: auto;
-  margin-top: 100px; /* Add margin to ensure the image is not too close to the top */
-  margin-bottom: 0px;
-  object-fit: contain;
+  overflow: hidden;
+
+  /* Add the background image */
+  background-image: url('/public/Background.png'); /* Replace with your image path */
+  background-size: cover; /* Ensures the image covers the entire screen */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-position: center; /* Centers the image */
+  background-attachment: fixed; /* Optional: Makes the background fixed when scrolling */
 }
 
-/* Ensure no overflow issues */
+/* Center the container */
 div {
   overflow: visible; /* Allow content to overflow if necessary */
   text-align: center;
@@ -28,11 +26,34 @@ div {
 }
 
 
-/* Style for the title section */
-
-
-/* Optional: Style the video container */
+/* Center and style the video */
 video {
-  border: 5px solid white; /* Optional: Border around video */
-  border-radius: 10px; /* Optional: Rounded corners */
+  display: block;
+  margin: 0px;
+  margin-top: 150px; /* Center the video horizontally and add spacing */
+  border: 5px solid white;
+  border-radius: 10px;
+  max-width: 80%; /* Ensure the video fits within smaller screens */
+}
+
+/* Style the button */
+button {
+  display: block;
+  margin: 20px auto; /* Center the button and position it below the video */
+  padding: 15px 30px; /* Increase padding for a bigger button */
+  background-color: #ffffff; /* Harmonize with the muted purple background */
+  color: #a97dd4;
+  border: none;
+  border-radius: 10px; /* Slightly more rounded corners */
+  cursor: pointer;
+  font-size: 1.25em; /* Make the text bigger */
+  font-family: Calibri, sans-serif; /* Ensure font is Calibri */
+  font-weight: bold; /* Optional: Make text bold for better readability */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Add hover effects */
+}
+
+button:hover {
+  background-color: #a97dd4; /* Slightly lighter purple on hover */
+  color: #ffffff;
+  transform: scale(1.05); /* Add a subtle zoom effect */
 }

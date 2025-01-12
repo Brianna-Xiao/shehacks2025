@@ -2,7 +2,8 @@ import './App.css';
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import VideoPlayer from "./components/Learn";
-import Record from "./components/Record"; // Update the component name
+import Record from "./components/Record";
+import Compare from "./components/Compare"; // Import the Compare component
 
 function App() {
   return (
@@ -12,6 +13,8 @@ function App() {
         <Route path="/" element={<VideoPlayer />} />
         {/* Route for the Record.js page */}
         <Route path="/newpage" element={<Record />} />
+        {/* Route for the Compare component */}
+        <Route path="/compare" element={<Compare />} />
       </Routes>
     </Router>
   );

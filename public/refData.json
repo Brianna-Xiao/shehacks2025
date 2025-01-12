@@ -1,0 +1,132 @@
+[
+    {
+        "timestamp": 4.35,
+        "angles": {
+            "left_elbow": 353.98,
+            "right_elbow": 2.51,
+            "left_shoulder": 109.14,
+            "right_shoulder": 258.89,
+            "left_knee": 180.2,
+            "right_knee": 178.24
+        }
+    },
+    
+    {
+        "timestamp": 6.25,
+        "angles": {
+            "left_elbow": 28.0,
+            "right_elbow": 157.0,
+            "left_shoulder": 35.26,
+            "right_shoulder": 331.71,
+            "left_knee": 183.88,
+            "right_knee": 178.31
+        }
+    },
+    
+    {
+        "timestamp": 7.45,
+        "angles": {
+            "left_elbow": 184.69,
+            "right_elbow": 173.58,
+            "left_shoulder": 16.63,
+            "right_shoulder": 349.43,
+            "left_knee": 183.6,
+            "right_knee": 178.72
+        }
+    },
+    
+    {
+        "timestamp": 8.35,
+        "angles": {
+            "left_elbow": 122.75,
+            "right_elbow": 239.87,
+            "left_shoulder": 156.91,
+            "right_shoulder": 201.78,
+            "left_knee": 181.75,
+            "right_knee": 178.94
+        }
+    },
+    
+    {
+        "timestamp": 9.35,
+        "angles": {
+            "left_elbow": 123.49,
+            "right_elbow": 235.61,
+            "left_shoulder": 161.09,
+            "right_shoulder": 196.53,
+            "left_knee": 181.15,
+            "right_knee": 178.93
+        }
+    },
+    {
+        "timestamp": 10.35,
+        "angles": {
+            "left_elbow": 124.51,
+            "right_elbow": 236.81,
+            "left_shoulder": 158.89,
+            "right_shoulder": 197.13,
+            "left_knee": 181.26,
+            "right_knee": 179.01
+        }
+    },
+    
+    {
+        "timestamp": 11.50,
+        "angles": {
+            "left_elbow": 187.16,
+            "right_elbow": 176.53,
+            "left_shoulder": 12.07,
+            "right_shoulder": 349.45,
+            "left_knee": 179.84,
+            "right_knee": 177.15
+        }
+    },
+   
+    
+    {
+        "timestamp": 13.45,
+        "angles": {
+            "left_elbow": 186.1,
+            "right_elbow": 176.04,
+            "left_shoulder": 11.84,
+            "right_shoulder": 349.78,
+            "left_knee": 181.17,
+            "right_knee": 174.38
+        }
+    },
+   
+    {
+        "timestamp": 14.60,
+        "angles": {
+            "left_elbow": 184.88,
+            "right_elbow": 178.98,
+            "left_shoulder": 12.37,
+            "right_shoulder": 346.96,
+            "left_knee": 179.05,
+            "right_knee": 171.78
+        }
+    },
+    {
+        "timestamp": 16.00,
+        "angles": {
+            "left_elbow": 183.75,
+            "right_elbow": 178.3,
+            "left_shoulder": 10.94,
+            "right_shoulder": 348.87,
+            "left_knee": 183.92,
+            "right_knee": 181.23
+        }
+    },
+    
+    {
+        "timestamp": 17.55,
+        "angles": {
+            "left_elbow": 180.32,
+            "right_elbow": 180.78,
+            "left_shoulder": 10.42,
+            "right_shoulder": 348.34,
+            "left_knee": 181.34,
+            "right_knee": 181.93
+        }
+    }
+]
