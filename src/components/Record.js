@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import axios from "axios";
 
 const Record = () => {
   const videoRef = useRef(null); // Ref for the dance video
@@ -6,6 +7,7 @@ const Record = () => {
   const mediaRecorderRef = useRef(null); // Ref for the MediaRecorder instance
   const [recording, setRecording] = useState(false); // State to track recording status
   const [recordedChunks, setRecordedChunks] = useState([]); // To store video data
+  const [backendStatus, setBackendStatus] = useState("stopped"); // State to track backend status
 
   // Start webcam stream
   const startWebcam = async () => {
@@ -20,8 +22,30 @@ const Record = () => {
     }
   };
 
+  // Check backend status
+  const checkBackendStatus = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:5001/status");
+      setBackendStatus(response.data.status);
+    } catch (error) {
+      console.error("Failed to check backend status:", error);
+    }
+  };
+
   // Start recording and play the dance video
-  const startRecording = () => {
+  const startRecording = async () => {
+    // Start the backend server
+    try {
+      const response = await axios.post("http://127.0.0.1:5001/start-processing");
+      console.log(response.data.message);
+      setBackendStatus("running");
+    } catch (error) {
+      console.error("Failed to start backend processing:", error);
+      alert("Failed to start backend processing. Please try again.");
+      return;
+    }
+
+    // Original recording logic
     const stream = webcamRef.current.srcObject;
     if (!stream) {
       console.error("Webcam stream is not initialized.");
@@ -65,12 +89,21 @@ const Record = () => {
   };
 
   // Stop recording without stopping the webcam stream
-  const stopRecording = () => {
+  const stopRecording = async () => {
     setRecording(false);
     if (mediaRecorderRef.current) {
-      mediaRecorderRef.current.stop(); // Stop the recording
+      mediaRecorderRef.current.stop();
     }
-    // The webcam stream remains active
+
+    // Stop the backend processing
+    try {
+      const response = await axios.post("http://127.0.0.1:5001/stop-processing");
+      console.log(response.data.message);
+      setBackendStatus("stopped");
+    } catch (error) {
+      console.error("Failed to stop backend processing:", error);
+      alert("Failed to stop backend processing. Please try again.");
+    }
   };
 
   // Handle when the dance video ends
@@ -80,9 +113,10 @@ const Record = () => {
     }
   };
 
-  // Initialize webcam on component mount
-  React.useEffect(() => {
+  // Initialize webcam and check backend status on component mount
+  useEffect(() => {
     startWebcam();
+    checkBackendStatus();
     return () => {
       const stream = webcamRef.current?.srcObject;
       if (stream) {
@@ -121,7 +155,11 @@ const Record = () => {
                 Stop Recording
               </button>
             ) : (
-              <button onClick={startRecording} style={recordButtonStyle}>
+              <button
+                onClick={startRecording}
+                style={recordButtonStyle}
+                disabled={backendStatus === "running"}
+              >
                 Start Recording
               </button>
             )}
@@ -132,7 +170,7 @@ const Record = () => {
   );
 };
 
-// CSS styles
+// Add the missing CSS styles here
 const containerStyle = {
   display: "flex",
   flexDirection: "column",
