@@ -1,38 +1,38 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Ensure full height for body and html */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  background-color: #b89ec7; /* Muted purple */
+  font-family: Calibri, sans-serif; /* Set font to Calibri */
+  /* overflow: hidden; */
+}
+/* Center the image and give it enough space */
+img {
+  width: 400px;
+  height: auto;
+  margin-top: 100px; /* Add margin to ensure the image is not too close to the top */
+  margin-bottom: 0px;
+  object-fit: contain;
+}
+
+/* Ensure no overflow issues */
+div {
+  overflow: visible; /* Allow content to overflow if necessary */
+  text-align: center;
   color: white;
+  margin-top: 1px; 
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Style for the title section */
+
+
+/* Optional: Style the video container */
+video {
+  border: 5px solid white; /* Optional: Border around video */
+  border-radius: 10px; /* Optional: Rounded corners */
 }
