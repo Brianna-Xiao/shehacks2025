@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // Import axios for making HTTP requests
 
 const Record = () => {
   const videoRef = useRef(null); // Ref for the dance video
@@ -22,13 +23,27 @@ const Record = () => {
   };
 
   // Start recording
-  const startRecording = () => {
+  const startRecording = async () => {
     const stream = webcamRef.current.srcObject;
     if (!stream) {
       console.error("Webcam stream is not initialized.");
       return;
     }
 
+    // Start the backend process without blocking
+    axios
+      .post("http://localhost:5001/start")
+      .then(() => {
+        console.log("Backend process (getcordinates.py) started successfully.");
+      })
+      .catch((error) => {
+        console.error(
+          "Failed to start backend process:",
+          error.response ? error.response.data : error.message
+        );
+      });
+
+    // Continue with recording logic
     setRecording(true);
     const mediaRecorder = new MediaRecorder(stream);
     mediaRecorderRef.current = mediaRecorder;
@@ -45,11 +60,24 @@ const Record = () => {
   };
 
   // Stop recording
-  const stopRecording = () => {
+  const stopRecording = async () => {
     setRecording(false);
     if (mediaRecorderRef.current) {
       mediaRecorderRef.current.stop();
     }
+
+    // Stop the backend process without blocking
+    axios
+      .post("http://localhost:5001/stop")
+      .then(() => {
+        console.log("Backend process (getcordinates.py) stopped successfully.");
+      })
+      .catch((error) => {
+        console.error(
+          "Failed to stop backend process:",
+          error.response ? error.response.data : error.message
+        );
+      });
   };
 
   // Handle when the dance video ends
