@@ -3,6 +3,7 @@ import mediapipe as mp
 import json
 import time
 from math import atan2, degrees
+import os
 
 # Initialize MediaPipe Pose
 mp_pose = mp.solutions.pose
@@ -22,6 +23,19 @@ cap = cv2.VideoCapture(0)
 # Metadata storage
 metadata = []
 start_time = time.time()
+
+# Get the current file's directory (backend folder)
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Go up one level to the project root and then into the public folder
+public_folder = os.path.abspath(os.path.join(current_dir, "..", "public"))
+
+# Ensure the public folder exists
+if not os.path.exists(public_folder):
+    os.makedirs(public_folder)
+    print(f"Created public folder at: {public_folder}")
+
+output_file = os.path.join(public_folder, "pose_metadata.json")
+print(f"Output file path: {output_file}")
 
 try:
     while cap.isOpened():
@@ -95,10 +109,10 @@ finally:
     cap.release()
     cv2.destroyAllWindows()
 
-    # Save metadata to JSON file
+    # Save metadata to JSON file in the public folder
     try:
-        with open("pose_metadata.json", "w") as f:
+        with open(output_file, "w") as f:
             json.dump(metadata, f, indent=4)
-        print("Pose metadata saved to pose_metadata.json")
+        print(f"Pose metadata saved to {output_file}")
     except Exception as e:
         print(f"Error saving JSON file: {e}")
