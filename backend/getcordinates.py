@@ -23,6 +23,7 @@ cap = cv2.VideoCapture(0)
 # Metadata storage
 metadata = []
 start_time = time.time()
+last_recorded_time = start_time  # Track when we last recorded data
 
 # Get the current file's directory (backend folder)
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -67,32 +68,39 @@ try:
             # Draw landmarks on the frame
             mp_drawing.draw_landmarks(frame, results.pose_landmarks, mp_pose.POSE_CONNECTIONS)
 
-            # Store angle data for the current frame
-            frame_data = {"timestamp": round(timestamp, 2), "angles": {}}
+            current_time = time.time()
+            
+            # Only record data every 0.5 seconds
+            if current_time - last_recorded_time >= 0.5:
+                timestamp = current_time - start_time
+                frame_data = {"timestamp": round(timestamp, 2), "angles": {}}
 
-            # Calculate and display angles for the defined key joints
+                # Calculate and store angles for recording
+                for name, (i1, i2, i3) in key_joints.items():
+                    a = [landmarks[i1].x, landmarks[i1].y]
+                    b = [landmarks[i2].x, landmarks[i2].y]
+                    c = [landmarks[i3].x, landmarks[i3].y]
+                    angle = calculate_angle(a, b, c)
+                    frame_data["angles"][name] = round(angle, 2)
+
+                # Append the frame data to the metadata list
+                metadata.append(frame_data)
+                last_recorded_time = current_time
+
+            # Display angles on video (happens every frame for smooth display)
             for name, (i1, i2, i3) in key_joints.items():
-                # Get coordinates for the three points
                 a = [landmarks[i1].x, landmarks[i1].y]
                 b = [landmarks[i2].x, landmarks[i2].y]
                 c = [landmarks[i3].x, landmarks[i3].y]
-
-                # Calculate angle
                 angle = calculate_angle(a, b, c)
 
-                # Store the angle in frame data
-                frame_data["angles"][name] = round(angle, 2)
-
-                # Get the pixel coordinates of the middle joint (e.g., elbow for elbow angles)
+                # Get the pixel coordinates of the middle joint
                 joint_x = int(landmarks[i2].x * frame.shape[1])
                 joint_y = int(landmarks[i2].y * frame.shape[0])
 
                 # Display the angle near the joint
                 cv2.putText(frame, f"{name}: {int(angle)} degrees", (joint_x, joint_y - 20),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2, cv2.LINE_AA)
-
-            # Append the frame data to the metadata list
-            metadata.append(frame_data)
 
         # Show the frame with annotations
         cv2.imshow("Pose Estimation with Angles", frame)
@@ -116,3 +124,4 @@ finally:
         print(f"Pose metadata saved to {output_file}")
     except Exception as e:
         print(f"Error saving JSON file: {e}")
+        
