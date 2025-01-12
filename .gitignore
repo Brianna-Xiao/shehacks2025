@@ -7,7 +7,6 @@ env/
 __pycache__/
 *.py[cod]
 *$py.class
-mediapipe/
 
 # Node modules (if you have any JavaScript/Node.js components)
 node_modules/
